@@ -1,8 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
-from app import app
+from app import db
 from werkzeug.security import generate_password_hash, check_password_hash 
 
-db = SQLAlchemy(app)
 
 ##models
 class User(db.Model):
@@ -57,15 +55,6 @@ class Genre(db.Model):
     #relationship to song
     songs = db.relationship('Song', backref=db.backref('genres' , lazy=True))
 
-#Adding predefined genres
-def add_genres():
-    genres = ['Classical music', 'Folk music', 'Fusion of classical and folk music', 'Modern music', 'Rock & Roll', 'Jazz', 'Rap']
-    for genre_name in genres:
-        if not Genre.query.filter_by(name=genre_name).first():
-            new_genre = Genre(name=genre_name)
-            db.session.add(new_genre)
-    db.session.commit()
-
 class Playlist(db.Model):
     __tablename__ = 'playlist'
     id = db.Column(db.Integer, primary_key=True)
@@ -83,12 +72,40 @@ class Rating(db.Model):
     song = db.relationship('Song', backref='ratings')
     user = db.relationship('User', backref='ratings')
 
+#Adding predefined genres
+def add_genres():
+    genres = ['Classical music', 'Folk music', 'Fusion of classical and folk music', 'Modern music', 'Rock & Roll', 'Jazz', 'Rap']
+    for genre_name in genres:
+        if not Genre.query.filter_by(name=genre_name).first():
+            new_genre = Genre(name=genre_name)
+            db.session.add(new_genre)
+    db.session.commit()
+    pass
 
-with app.app_context():
-    db.create_all()
-    #crete admin if not exists
+def add_users():
+    # List of predefined users
+    predefined_users = [
+        {'username': 'user1', 'password': 'user1', 'email': 'user1@email.com'},
+        {'username': 'user2', 'password': 'user2', 'email': 'user2@email.com'},
+        {'username': 'user3', 'password': 'user3', 'email': 'user3@email.com'},
+        {'username': 'user4', 'password': 'user4', 'email': 'user4@email.com'}
+    ]
+    existing_usernames = [user.username for user in User.query.all()]
+    for user_data in predefined_users:
+        if user_data['username'] not in existing_usernames:
+            new_user = User(
+                username=user_data['username'],
+                email=user_data['email']
+            )
+            new_user.password = user_data['password']  
+            db.session.add(new_user)
+    db.session.commit()
+    pass
+
+def create_admin_if_not_exists():
     admin = User.query.filter_by(is_admin=True).first()
     if not admin:
         admin = User(username= 'admin', password= 'admin',email = 'admin@admin.com', is_admin=True)
         db.session.add(admin)
         db.session.commit()
+        pass

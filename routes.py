@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from models import db, User, Song, Playlist, Genre, Rating
-from app import app
+from models import  User, Song, Playlist, Genre, Rating
+from app import app, db
 from datetime import datetime
 
 def auth_required(func):

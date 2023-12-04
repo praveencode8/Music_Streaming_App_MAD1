@@ -1,9 +1,3 @@
-from app import app
-
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.sqlite3"
-
-app.secret_key = "secret_key"
-
-
-
-
+class Config:
+    SQLALCHEMY_DATABASE_URI = "sqlite:///database.sqlite3"
+    SECRET_KEY = "secret_key"
