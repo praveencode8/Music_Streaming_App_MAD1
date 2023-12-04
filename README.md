@@ -22,7 +22,8 @@ The database consists of the following tables:
 - **Playlist_Songs**: Facilitates the many-to-many relationship between Playlist and Song tables.
 
 ## ER Diagram of Database
-[Include your ER diagram image or link here]
+![Untitled (1)](https://github.com/praveencode8/music_streaming/assets/72277324/d5cc28c7-5557-46bc-a6ad-5bc21a2c413c)
+
 
 ## Architecture and Features
 ### Architecture
