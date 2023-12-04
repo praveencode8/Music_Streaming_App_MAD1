@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% set page_context = 'landing' %}
+
+{% block title %}
+Login-Music
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h1>Welcome to Music Streaming Application</h1>
+    <div class="button-group">
+        <a href="{{ url_for('user_login') }}" class="btn btn-primary">Login</a>
+        <a href="{{ url_for('register') }}" class="btn btn-secondary">Register</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .login-container {
+        text-align: center;
+        margin-top: 60px;
+    }
+
+    .button-group {
+        margin-top: 20px;
+    }
+
+    .button-group a {
+        margin: 5px;
+    }
+</style>
+{% endblock %}

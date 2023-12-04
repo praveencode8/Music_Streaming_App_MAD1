@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% set page_context = 'create_playlist' %}
+
+{% block content %}
+<div class="create-playlist-container">
+    <h1>Create New Playlist</h1>
+    <form action="{{ url_for('create_playlist_post') }}" method="post">
+        <div class="form-group">
+            <label for="playlist_name">Playlist Name:</label>
+            <input type="text" id="playlist_name" name="playlist_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="songs">Select Songs <i>(Can select multiple songs by pressing Ctrl and selecting song)</i> : </label>
+            <select name="songs" id="songs" multiple required>
+                {% for song in songs %}
+                <option value="{{ song.id }}">{{ song.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <input type="submit" value="Create Playlist" class="btn btn-success">
+    </form>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .create-playlist-container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    #songs {
+        width: 100%;
+        height: 150px;
+    }
+</style>
+{% endblock %}

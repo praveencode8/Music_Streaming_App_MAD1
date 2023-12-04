@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% set page_context = 'admin' %}
+
+{% block title %}
+    Admin Dashboard - Music 
+{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <div class = "admin-header">
+        <h1>Admin Dashboard</h1>
+        <a href="{{ url_for('manage_tracks') }}" class="btn btn-primary">Manage Tracks</a>
+    </div>
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <div class="stat-box">
+            <h3>Normal User Count</h3> 
+            <p>{{ normal_user_count }}</p>
+        </div>
+        <div class="stat-box">
+            <h3>Creator Count</h3> 
+            <p>{{ creator_count }}</p>
+        </div>
+        <div class="stat-box">
+            <h3>Total Tracks</h3> 
+            <p>{{ total_tracks }}</p>
+        </div>
+        <div class="stat-box">
+            <h3>Total Albums</h3>
+            <p>{{ total_albums }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    h1 {
+        align-items:center ;
+        margin-top: 20px;
+        justify-content: flex-start;
+    }
+    .admin-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .admin-header {
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    .stats-section {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+    .stat-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        width: 250px; 
+        text-align: center;;
+    }
+</style>
+{% endblock %}

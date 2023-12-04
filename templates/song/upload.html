@@ -1,0 +1,108 @@
+{% extends 'layout.html' %}
+{% set page_context = 'upload' %}
+
+{% block title %}
+    Song Upload
+{% endblock %}
+
+{% block content %}
+    <h1>Upload song</h1>
+    <div class="song-details">
+        <form method="post" class = "form" >
+            <div class="mb-3">
+                <label for="name">Title:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="artist_name">Artist:</label>
+                <input type="text" id="artist_name" name="artist_name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="album_name">Album:</label>
+                <input type="text" id="album_name" name="album_name" placeholder="Enter new or select existing" list="existing_albums" required>
+                <datalist id="existing_albums">
+                    {% for album in albums %}
+                    <option value="{{ album.album_name }}">{{ album.album_name }}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+
+            <div class="mb-3">
+                <label for="lyrics">Lyrics:</label>
+                <textarea id="lyrics" name="lyrics" rows="10" cols="30" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="genre">Genre:</label>
+                <select name = "genre" id = "genre" required>
+                    {% for genre in genres %}
+                        <option value="{{genre.name}}">{{genre.name}}</option>
+                    {% endfor %}
+                </select><br><br>
+            </div>
+
+            <div class="mb-3">
+                <label for="release_date">Release Date:</label>
+                <input type="date" id="release_date" max="{{nowstring}}" name="release_date" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="song_file">Song File:</label>
+                <input type="file" id="song_file" name="song_file" >
+            </div>
+            <input type="submit" value="Upload" class="btn btn-success">
+        </form>
+    </div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .form {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: normal;
+        max-width: 500px;
+        margin: auto;
+        margin-bottom: 100px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+    .mb-3 {
+        width: 100%;
+        margin: 0px 0px 0px 0px;
+        }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    label {
+        margin-top: 10px;
+    }
+    input, textarea, select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .btn-success {
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn-success:hover {
+        background-color: #218838;
+    }
+</style>
+{% endblock %}

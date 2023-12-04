@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% set page_context = 'register' %}
+
+{% block title %}
+Register - Music
+{% endblock %}
+
+{% block content %}
+<div class="register-container">
+    <h1>Register</h1>
+    <form method="post" class="register-form">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username:</label>
+            <input type="text" name="username" id="username" class="form-control" required/>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" name="password" id="password" class="form-control" required/>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" name="email" id="email" class="form-control" required/>
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Register" class="btn btn-success"/>
+        </div>
+        <div class="mb-3">
+            <a href="{{ url_for('user_login') }}" class="btn btn-primary">Login</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .register-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh; /* Full viewport height */
+    }
+    .register-form {
+        width: 100%;
+        max-width: 330px; /* Adjust width as needed */
+        padding: 15px;
+        margin: 0;
+    }
+    .btn-success, .btn-primary {
+        width: 100%;
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,13 @@
+<form class="d-flex" role="search" action="{{ url_for('search') }}" method="get">
+    <select name="parameter" id="parameter">
+        <option value="song">Song</option>
+        <option value="artist">Artist</option>
+        <option value="album">Album</option>
+        <option value="genre">Genre</option>
+        <option value="rating">Rating</option>
+    </select>
+    <input class="form-control me-2" type="search" placeholder="Search" name="query" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+    
+

@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% set page_context = 'view_lyrics' %}
+
+{% block title %}
+    Lyrics - Music
+{% endblock %}
+
+{% block content %}
+<div class="lyrics-container">
+    <div class="song-details">
+        <h1>{{ song.name }}</h1>
+        <h3>Artist: {{ song.artist_name }}</h3>
+        <p>Release Date: {{ song.release_date.strftime('%Y-%m-%d') }}</p>
+        <!-- Rating Section -->
+        <div class="rating-section">
+            <p>Average Rating: {{ song.average_rating|round(1) if average_rating  else 'Not rated yet' }}</p>
+            <form action="{{ url_for('rate_song', song_id=song.id) }}" method="post">
+                <input type="number" name="rating" min="1" max="5" required>
+                <button type="submit" class="btn btn-primary">Rate</button>
+            </form>
+        </div>
+    </div>
+    <div class="lyrics-box">
+        <p>{{ song.lyrics }}</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .lyrics-container {
+        padding: 20px;
+        max-width: 800px; /* Adjust as needed */
+        margin: auto;
+    }
+    .song-details {
+        margin-bottom: 20px;
+    }
+    .lyrics-box {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 15px;
+        overflow-y: auto; /* Allows scrolling for long lyrics */
+        max-height: 60vh; /* Adjust the height as needed */
+    }
+    .rating-section {
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}

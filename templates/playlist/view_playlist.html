@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% set page_context = 'view_playlist' %}
+
+{% block content %}
+<div class="playlist-container">
+    <h1>{{ playlist.name }}</h1>
+    <p>Songs in this playlist:</p>
+    <ul class="song-list">
+        {% for song in playlist.songs %}
+            <li>
+                <span>{{ song.name }}</span>
+                <span> - {{ song.artist_name }}</span>
+                <!-- Add more song details if needed -->
+                <a href="{{ url_for('view_lyrics', id=song.id) }}" class="btn btn-primary">View Lyrics</a>
+            </li>
+        {% else %}
+            <li>No songs in this playlist.</li>
+        {% endfor %}
+    </ul>
+    <!-- Delete button (only visible to the playlist owner) -->
+    {% if playlist.user_id == session['user_id'] %}
+        <form action="{{ url_for('delete_playlist', id=playlist.id) }}" method="post">
+            <button type="submit" class="btn btn-danger">Delete Playlist</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .playlist-container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+    }
+    .song-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .song-list li {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+    .song-list li span {
+        margin-right: 10px;
+    }
+</style>
+{% endblock %}

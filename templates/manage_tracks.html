@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+{% set page_context = 'manage_tracks' %}
+
+{% block title %}
+    Manage Tracks - Music
+{% endblock %}
+
+{% block content %}
+<h1>Manage Tracks</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Song ID</th>
+            <th>Song Name</th>
+            <th>Creator Name</th>
+            <th>Genre</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for track in tracks %}
+        <tr>
+            <td>{{ track.id }}</td>
+            <td>{{ track.name }}</td>
+            <td>{{ track.creator.username }}</td>
+            <td>{{ track.genre }}</td>
+            <td class="actions">
+                <div class="button-group">
+                    <a href="{{ url_for('view_lyrics', id=track.id) }}" class="btn btn-primary">View Lyrics</a>
+                    <form action="{{ url_for('admin_delete_song', song_id=track.id) }}" method="post" onsubmit="return confirm('Are you sure?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    {% if not track.creator.is_blacklisted %}
+                        <form action="{{ url_for('blacklist_user', user_id=track.creator_id) }}" method="post" onsubmit="return confirm('Are you sure you want to blacklist this user?');">
+                            <button type="submit" class="btn btn-warning">Blacklist Creator</button>
+                        </form>
+                    {%else%}
+                        <form action="{{ url_for('unblacklist_user', user_id=track.creator_id) }}" method="post" onsubmit="return confirm('Are you sure you want to remove this user from the blacklist?');">
+                            <button type="submit" class="btn btn-info">Remove from Blacklist</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block style %}
+<style>
+    h1 {
+        margin: 20px 0;
+    }
+    .actions .button-group {
+        display: flex;
+        gap: 10px; /* Adjust gap between buttons */
+    }
+    .button-group form {
+        margin: 0; /* Remove default form margins */
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'layout.html' %}
+{% set page_context = 'index' %}
+
+{% block title %}
+    Home - Music
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Segment 1: All Songs -->
+    <div class="songs-section">
+        <h3>All Songs</h3>
+        <div class="songs-row">
+            {% for song in songs %}
+                <div class="song-box">
+                    <p>{{ song.name }}</p>
+                    <p>{{ song.artist_name }}</p>
+                    <p>{{ song.album_name }}</p>
+                    <a href="{{ url_for('view_lyrics', id=song.id) }}" class="btn btn-primary">View Lyrics</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+
+    <!-- Segment 2: All Playlists -->
+    <div class="playlists-section">
+        <div class="playlist-header">
+            <h3>Your Playlists</h3>
+            <a href="{{ url_for('create_playlist') }}" class="btn btn-success">Create New Playlist</a>
+        </div>
+
+        <div class="playlists-row">
+            {% for playlist in playlists %}
+                <div class="playlist-box">
+                    <p>{{ playlist.name }}</p>
+                    <a href="{{ url_for('view_playlist', id=playlist.id) }}" class="btn btn-primary">View Tracks</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+
+    <!-- Segment 3: Songs by Genre -->
+    <div class="genres-section">
+        {% for genre, genre_songs in songs_by_genre.items() %}
+            <div class="genre">
+                <h3>{{ genre }}</h3>
+                <div class="songs-row">
+                    {% for song in genre_songs %}
+                        <div class="song-box">
+                            <p>{{ song.name }}</p>
+                            <p>{{ song.artist_name }}</p>
+                            <p>{{ song.album_name }}</p>
+                            <a href="{{ url_for('view_lyrics', id=song.id) }}" class="btn btn-primary">View Lyrics</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .navbar{
+        width: 100%;
+    }
+    .songs-section {
+        margin-top: 20px;
+    }
+    .songs-row {
+        display: flex;
+        overflow-x: auto;  /* Allows horizontal scrolling */
+        gap: 20px;  /* Spacing between song boxes */
+    }
+    .genres-section {
+        margin-top: 20px;
+    }
+    .genre {
+        margin-bottom: 20px;
+    }
+    .songs-row {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+    }
+    .song-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        width: 250px; 
+        text-align: center; 
+    }
+    .playlists-section {
+        margin-top: 20px;
+    }
+    .playlist-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .playlists-row {
+        display: flex;
+        overflow-x: auto;  /* Allows horizontal scrolling for many playlists */
+        gap: 20px;  /* Spacing between playlist boxes */
+    }
+    .playlist-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        width: 250px; 
+        text-align: center;  
+    }
+
+</style>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% set page_context = 'search_results' %}
+
+{% block title %}
+    Search Results - Music
+{% endblock %}
+
+{% block content %}
+<h1>Search Results for {{ result_type }}</h1>
+<div class="results-container">
+    {% for result in results %}
+        <div class="result-item">
+            <h2>{{ result.name }}</h2>
+            <p>Artist: {{ result.artist_name }}</p>
+            <p>Album: {{ result.album_name }}</p>
+            <p>Genre: {{result.genre}}</p>
+            <!-- Include other details like genre, ratings, etc. -->
+            <a href="{{ url_for('view_lyrics', id=result.id) }}" class="btn btn-primary">View Lyrics</a>
+        </div>
+    {% else %}
+        <p>No results found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .results-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .result-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        width: 300px; 
+        text-align: center; 
+    }
+</style>
+{% endblock %}
